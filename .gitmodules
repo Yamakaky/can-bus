@@ -1,0 +1,3 @@
+[submodule "libraries/CAN_BUS"]
+	path = libraries/CAN_BUS
+	url = https://github.com/Seeed-Studio/CAN_BUS_Shield
