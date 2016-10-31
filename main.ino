@@ -25,6 +25,14 @@ void printHex(INT8U item) {
     Serial.print(item, HEX);
 }
 
+void printBool(INT8U b) {
+    if (b) {
+        Serial.print("true");
+    } else {
+        Serial.print("false");
+    }
+}
+
 void loop()
 {
     INT8U len = 0;
@@ -36,13 +44,13 @@ void loop()
         Serial.print("{\"id\": 0x");
         printHex(CAN.getCanId());
         Serial.print(", \"isExtended\": ");
-        Serial.print(CAN.isExtendedFrame());
+        printBool(CAN.isExtendedFrame());
         Serial.print(", \"isRemote\": ");
-        Serial.print(CAN.isRemoteRequest());
+        printBool(CAN.isRemoteRequest());
 
         Serial.print(", \"data\": [");
-        if len > 0 {
-            printHex(buf[0])
+        if (len > 0) {
+            printHex(buf[0]);
             for(size_t i = 1; i < len; i++) {
                 Serial.print(", ");
                 printHex(buf[i]);
