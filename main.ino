@@ -25,6 +25,11 @@ void printHex(INT8U item) {
     Serial.print(item, HEX);
 }
 
+void printBin(INT8U item) {
+    Serial.print("0b");
+    Serial.print(item, BIN);
+}
+
 void printBool(INT8U b) {
     if (b) {
         Serial.print("true");
@@ -41,7 +46,7 @@ void loop()
     if (CAN_MSGAVAIL == CAN.checkReceive()) {
         CAN.readMsgBuf(&len, buf);
 
-        Serial.print("{\"id\": 0x");
+        Serial.print("{\"id\": ");
         printHex(CAN.getCanId());
         Serial.print(", \"isExtended\": ");
         printBool(CAN.isExtendedFrame());
@@ -50,10 +55,10 @@ void loop()
 
         Serial.print(", \"data\": [");
         if (len > 0) {
-            printHex(buf[0]);
+            printBin(buf[0]);
             for(size_t i = 1; i < len; i++) {
                 Serial.print(", ");
-                printHex(buf[i]);
+                printBin(buf[i]);
             }
         }
         Serial.println("]}");
